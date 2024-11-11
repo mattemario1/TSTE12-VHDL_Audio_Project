@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom behav
+DEFAULT_FILE atom Audio_i2s_interface_behav.vhd

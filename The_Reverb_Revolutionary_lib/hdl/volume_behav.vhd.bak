@@ -1,0 +1,30 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.volume.behav
+--
+-- Created:
+--          by - akhpr339.student-liu.se (muxen2-111.ad.liu.se)
+--          at - 17:16:43 10/16/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY volume IS
+   PORT( 
+      dbus2        : IN     std_logic_vector (15 DOWNTO 0);
+      fpga_clk     : IN     std_logic;
+      fpga_reset_n : IN     std_logic;
+      dbus3        : OUT    std_logic_vector (15 DOWNTO 0)
+   );
+
+-- Declarations
+
+END volume ;
+
+--
+ARCHITECTURE behav OF volume IS
+BEGIN
+END ARCHITECTURE behav;
+

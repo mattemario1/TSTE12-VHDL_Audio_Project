@@ -1,0 +1,27 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Visual_memory.arch
+--
+-- Created:
+--          by - emipi270.student-liu.se (muxen2-110.ad.liu.se)
+--          at - 15:40:36 10/03/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+LIBRARY altera_mf;
+USE altera_mf.all;
+USE ieee.std_logic_arith.all;
+
+ENTITY Visual_memory IS
+-- Declarations
+
+END Visual_memory ;
+
+--
+ARCHITECTURE arch OF Visual_memory IS
+BEGIN
+END ARCHITECTURE arch;
+

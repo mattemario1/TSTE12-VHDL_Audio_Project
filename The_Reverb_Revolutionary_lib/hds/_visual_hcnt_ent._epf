@@ -1,0 +1,2 @@
+DEFAULT_FILE atom hcnt_ent_hcnt_arch.vhd
+DEFAULT_ARCHITECTURE atom hcnt_arch

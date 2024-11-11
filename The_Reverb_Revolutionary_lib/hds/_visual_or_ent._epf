@@ -1,0 +1,2 @@
+DEFAULT_FILE atom or_ent_or_arch.vhd
+DEFAULT_ARCHITECTURE atom or_arch

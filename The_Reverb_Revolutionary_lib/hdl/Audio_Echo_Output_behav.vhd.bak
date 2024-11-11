@@ -1,0 +1,61 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Audio_Echo_Output.behav
+--
+-- Created:
+--          by - akhpr339.student-liu.se (muxen1-112.ad.liu.se)
+--          at - 17:08:18 10/15/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY Audio_Echo_Output IS
+   PORT( 
+      fpga_clk           : IN     std_logic;
+      audio_echo_output  : IN     std_logic_vector (15 DOWNTO 0);
+      Audio_sample_2     : OUT    std_logic_vector (15 DOWNTO 0);
+      fpga_reset_n       : IN     std_logic;
+      audio_echo_output1 : IN     std_logic_vector (15 DOWNTO 0);
+      audio_echo_output2 : IN     std_logic_vector (15 DOWNTO 0);
+      audio_echo_output3 : IN     std_logic_vector (15 DOWNTO 0)
+   );
+
+-- Declarations
+
+END Audio_Echo_Output ;
+
+--
+ARCHITECTURE behav OF Audio_Echo_Output IS
+BEGIN
+  Audio_sample_2 <= audio_echo_output;
+END ARCHITECTURE behav;
+
+-- mke sure i change the input audio_echo_output to 4 separate inputs so that they dont overwrite each other
+
+
+--if Echo_room_setting    = 0001 then audio_echo_output <= audio_delay_1 
+--elsif Echo_room_setting = 0010 then audio_echo_output <= audio_delay_2
+--elsif Echo_room_setting = 0011 then audio_echo_output <= audio_delay_3
+--elsif Echo_room_setting = 0100 then audio_echo_output <= audio_delay_4
+--others 
+--audio_echo_output <= audio_in
+
+if Echo_room_setting  = 0001 then
+  audio_echo_output = audio_delay_1
+  
+elsif Echo_room_setting = 0010 then 
+  audio_echo_output <= audio_delay_2
+  
+elsif Echo_room_setting = 0011 then 
+  audio_echo_output <= audio_delay_3
+  
+elsif Echo_room_setting = 0100 then 
+  audio_echo_output <= audio_delay_4
+  
+others 
+  audio_echo_output <= audio_in
+  
+  
+  -- now how to add og signal plus the og signal

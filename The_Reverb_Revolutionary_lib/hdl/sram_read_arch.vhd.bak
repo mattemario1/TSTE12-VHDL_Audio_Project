@@ -1,0 +1,32 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.sram_read.arch
+--
+-- Created:
+--          by - emipi270.student-liu.se (muxen2-111.ad.liu.se)
+--          at - 14:58:37 10/04/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY Visual_sram_read IS
+    port(
+      SRAM_Data : OUT std_logic_vector(15 downto 0);
+      fpga_clk_65M : IN std_logic
+    );
+
+END Visual_sram_read ;
+
+--
+ARCHITECTURE arch OF Visual_sram_read IS
+  
+BEGIN
+  if rising_edge(fpga_clk_65M) then
+    SRAM_Data <= (others => '1');
+  end if;
+  
+  
+END ARCHITECTURE arch;
+

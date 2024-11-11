@@ -1,0 +1,21 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Visual_group_no_ent.arch
+--
+-- Created:
+--          by - emipi270.student-liu.se (muxen2-110.ad.liu.se)
+--          at - 15:43:27 10/03/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+
+ENTITY Visual_group_no_ent IS
+END ENTITY Visual_group_no_ent;
+
+--
+ARCHITECTURE arch OF Visual_group_no_ent IS
+BEGIN
+END ARCHITECTURE arch;
+

@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom pixel_reg_arch
+DEFAULT_FILE atom Visual_pixel_reg_arch.vhd

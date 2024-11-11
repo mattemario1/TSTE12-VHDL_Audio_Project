@@ -1,0 +1,14 @@
+force -repeat 20 fpga_clk 0 0, 1 10
+force kb_clk 1 25us, 0 100us, 1 150us, 0 200us, 1 250us, 0 300us, 1 350us, 0 400us, 1 450us, 0 500us, 1 550us, 0 600us, 1 650us, 0 700us, 1 750us, 0 800us, 1 850us, 0 900us, 1 950us, 0 1000us, 1 1050us, 0 1100us, 1 1150us
+run 1500 us
+
+#down
+force kb_data 1 25us, 0 75us, 0 175us, 1 275us, 0 375us, 0 475us, 1 575us, 1 675us, 1 775us, 0 875us, 0 975us, 1 1075us
+#up
+force kb_data 1 25us, 0 75us, 1 175us, 0 275us, 1 375us, 0 475us, 1 575us, 1 675us, 1 775us, 0 875us, 0 975us, 1 1075us
+#left
+force kb_data 1 25us, 0 75us, 1 175us, 1 275us, 0 375us, 1 475us, 0 575us, 1 675us, 1 775us, 0 875us, 0 975us, 1 1075us
+#right
+force kb_data 1 25us, 0 75us, 0 175us, 0 275us, 1 375us, 0 475us, 1 575us, 1 675us, 1 775us, 0 875us, 0 975us, 1 1075us
+#break
+force kb_data 1 25us, 0 75us, 0 175us, 0 275us, 0 375us, 0 475us, 1 575us, 1 675us, 1 775us, 1 875us, 0 975us, 1 1075us

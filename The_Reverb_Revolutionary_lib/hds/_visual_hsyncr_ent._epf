@@ -1,0 +1,2 @@
+DEFAULT_FILE atom hsyncr_ent_hsyncr_ant.vhd
+DEFAULT_ARCHITECTURE atom hsyncr_ant

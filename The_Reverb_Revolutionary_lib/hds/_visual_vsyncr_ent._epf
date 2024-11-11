@@ -1,0 +1,2 @@
+DEFAULT_FILE atom vsyncr_ent_vsyncr_arch.vhd
+DEFAULT_ARCHITECTURE atom vsync_arch

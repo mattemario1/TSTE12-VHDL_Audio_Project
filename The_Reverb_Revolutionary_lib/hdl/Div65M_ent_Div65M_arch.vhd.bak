@@ -1,0 +1,24 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Div65M_ent.Div65M_arch
+--
+-- Created:
+--          by - emipi270.student-liu.se (muxen2-110.ad.liu.se)
+--          at - 18:05:41 10/01/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+USE ieee.std_logic_arith.all;
+
+ENTITY Div65M_ent IS
+-- Declarations
+
+END Div65M_ent ;
+
+--
+ARCHITECTURE Div65M_arch OF Div65M_ent IS
+BEGIN
+END ARCHITECTURE Div65M_arch;
+

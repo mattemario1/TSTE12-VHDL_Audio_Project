@@ -1,0 +1,2 @@
+DEFAULT_FILE atom vcnt_ent_vcnt_arch.vhd
+DEFAULT_ARCHITECTURE atom vcnt_arch

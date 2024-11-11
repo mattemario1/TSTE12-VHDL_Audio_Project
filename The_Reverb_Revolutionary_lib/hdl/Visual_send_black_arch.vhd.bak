@@ -1,0 +1,47 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Visual_send_black.arch
+--
+-- Created:
+--          by - emipi270.student-liu.se (muxen2-114.ad.liu.se)
+--          at - 17:10:24 10/02/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+LIBRARY altera_mf;
+USE altera_mf.all;
+USE ieee.std_logic_arith.all;
+
+ENTITY Visual_send_black IS
+   PORT( 
+      c0          : IN     STD_LOGIC;
+      locked      : IN     STD_LOGIC;
+      vga_blank_n : IN     std_logic;
+      vga_b       : OUT    std_logic_vector (7 DOWNTO 0);
+      vga_r       : OUT    std_logic_vector (7 DOWNTO 0);
+      vga_g       : OUT    std_logic_vector (7 DOWNTO 0)
+   );
+
+-- Declarations
+
+END Visual_send_black ;
+
+--
+ARCHITECTURE arch OF Visual_send_black IS
+BEGIN
+  process(c0, vga_b, vga_g, vga_r)
+  begin
+  if rising_edge(c0) then
+    if vga_blank_n then
+      vga_b <= b"10000000";
+      vga_g <= b"00010000";
+      vga_r <= b"01000010";
+    end if;
+  end if;
+end process;
+
+END ARCHITECTURE arch;
+

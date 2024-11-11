@@ -1,0 +1,22 @@
+[DesignChecker]
+The_Reverb_Revolutionary_lib = $HDS_PROJECT_DIR/The_Reverb_Revolutionary_lib/designcheck
+[ModelSim]
+The_Reverb_Revolutionary_lib = $HDS_PROJECT_DIR/The_Reverb_Revolutionary_lib/modelsim
+[Precision]
+The_Reverb_Revolutionary_lib = $HDS_PROJECT_DIR/The_Reverb_Revolutionary_lib/ps
+[hdl]
+The_Reverb_Revolutionary_lib = $HDS_PROJECT_DIR/The_Reverb_Revolutionary_lib/hdl
+[hds]
+The_Reverb_Revolutionary_lib = $HDS_PROJECT_DIR/The_Reverb_Revolutionary_lib/hds
+[hds_settings]
+default_library = The_Reverb_Revolutionary_lib
+design_root = .()
+project_description = TSTE12_Project
+version = 3
+[library_files_inclusion]
+The_Reverb_Revolutionary_lib = specify
+[library_type]
+The_Reverb_Revolutionary_lib = regular
+[protected_library_traversal]
+[shared]
+others = $HDS_TEAM_HOME/shared.hdp

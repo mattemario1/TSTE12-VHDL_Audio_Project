@@ -1,0 +1,35 @@
+--
+-- VHDL Architecture Lab2_lib.Group_no_ent.Group_no_arch
+--
+-- Created:
+--          by - emibj862.student-liu.se (muxen2-110.ad.liu.se)
+--          at - 15:19:53 09/23/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+LIBRARY altera_mf;
+USE altera_mf.all;
+USE ieee.std_logic_arith.all;
+
+ENTITY Visual_group_no_ent IS
+   PORT( 
+      HEX6 : OUT    std_logic_vector (6 DOWNTO 0);
+      HEX7 : OUT    std_logic_vector (6 DOWNTO 0)
+   );
+
+-- Declarations
+
+END Group_no_ent ;
+
+--
+ARCHITECTURE Group_no_arch OF Group_no_ent IS
+BEGIN
+  
+  HEX7 <= "1000000"; --0
+  HEX6 <= "0010010"; --5
+  
+END ARCHITECTURE Group_no_arch;
+

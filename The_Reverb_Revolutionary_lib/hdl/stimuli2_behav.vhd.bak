@@ -1,0 +1,64 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.stimuli2.behav
+--
+-- Created:
+--          by - simel970.student-liu.se (muxen2-111.ad.liu.se)
+--          at - 11:26:01 10/17/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+USE ieee.numeric_std.all;
+
+ENTITY stimuli2 IS
+   PORT( 
+      audio_ready  : OUT    std_logic;
+      fpga_clk     : OUT    std_logic;
+      fpga_reset_n : OUT    std_logic;
+      i2c_sda      : INOUT  std_logic
+   );
+
+-- Declarations
+
+END stimuli2 ;
+
+--
+ARCHITECTURE behav OF stimuli2 IS
+  
+  signal clk : std_logic := '0';
+  constant FPGA_CLK_PERIOD : time := 15.384 ns;   -- 65 MHz clock period
+ 
+BEGIN
+  
+  fpga_clk_gen : process
+  begin
+    
+    clk <= '0';
+    wait for FPGA_CLK_PERIOD / 2;
+    clk <= '1';
+    wait for FPGA_CLK_PERIOD / 2;
+    
+  end process fpga_clk_gen;
+  
+  fpga_clk <= clk;
+  
+  stimuli_process : process
+  begin
+    
+    fpga_reset_n <= '0';
+    i2c_sda <= 'Z';
+    wait for 50 ns;
+    fpga_reset_n <= '1';
+    
+    wait for 210000 ns;
+    
+    wait;
+    
+  end process stimuli_process;
+  
+  
+
+END ARCHITECTURE behav;
+

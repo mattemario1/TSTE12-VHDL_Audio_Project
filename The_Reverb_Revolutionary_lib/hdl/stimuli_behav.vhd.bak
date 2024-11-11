@@ -1,0 +1,135 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.stimuli.behav
+--
+-- Created:
+--          by - simel970.student-liu.se (muxen2-101.ad.liu.se)
+--          at - 08:52:43 10/04/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+USE ieee.numeric_std.all;
+
+ENTITY stimuli IS
+   PORT( 
+      fpga_clk     : OUT    std_logic;
+      fpga_reset_n : OUT    std_logic;
+      adcdat       : OUT    std_logic;
+      adclrck      : OUT    std_logic;
+      bclk         : OUT    std_logic;
+      daclrck      : OUT    std_logic;
+      i2c_sda      : INOUT  std_logic
+   );
+
+-- Declarations
+
+END stimuli ;
+
+
+ARCHITECTURE behav OF stimuli IS
+
+  signal clk : std_logic := '0';
+  
+  -- clock period constant
+  constant FPGA_CLK_PERIOD : time := 15.384 ns;   -- 65 MHz clock period
+  constant BCLK_PERIOD : time := 708.617 ns;      -- bclk = 44.1 kHz x 16 bits x 2 channels = 1.4112 MHz
+  constant LRCK_PERIOD : time := 22.676 us;       -- adclrck & daclrck = 44.1 kHz (sample rate)
+  
+BEGIN
+  
+  fpga_clk_gen : process
+  begin
+    
+    clk <= '0';
+    wait for FPGA_CLK_PERIOD / 2;
+    clk <= '1';
+    wait for FPGA_CLK_PERIOD / 2;
+    
+  end process fpga_clk_gen;
+  
+  fpga_clk <= clk;
+  
+  bit_clk_gen : process
+  begin
+    
+    bclk <= '0';
+    wait for BCLK_PERIOD / 2;
+    bclk <= '1';
+    wait for BCLK_PERIOD / 2;
+    
+  end process bit_clk_gen;
+  
+  adclrck_gen : process
+  begin
+    
+    adclrck <= '0';
+    wait for LRCK_PERIOD / 2;
+    adclrck <= '1';
+    wait for LRCK_PERIOD / 2;
+    
+  end process adclrck_gen;
+  
+  daclrck_gen : process
+  begin
+    
+    daclrck <= '0';
+    wait for LRCK_PERIOD / 2;
+    daclrck <= '1';
+    wait for LRCK_PERIOD / 2;
+    
+  end process daclrck_gen;
+  
+  
+  stimuli_process : process
+  begin
+    
+    fpga_reset_n <= '0';
+    i2c_sda <= 'Z';
+    wait for 50 ns;
+    fpga_reset_n <= '1';
+    
+    wait for 210000 ns;
+    i2c_sda <= '0';
+    
+    
+    -- wait for configuration
+    --wait for 2000 ns;
+    
+    --wait until config_done = '1';
+    
+--    -- simulate audio data from ADC
+--    for i in 0 to 15 loop       -- 16 bit sample
+--      adcdat <= '1';
+--      wait for BCLK_PERIOD;     -- wait for one bit clock cycle
+--      adcdat <= '0';
+--      wait for BCLK_PERIOD;     -- wait for another cycle
+--    end loop;
+--    
+--    -- receive audio_data and simulate processing
+--    wait for 200 ns;
+--    if audio_valid = '1' then
+--      Audio_L_output <= (others => '1');
+--      Audio_R_output <= (others => '1');
+--      audio_ready <= '1';
+--      wait for 100 ns;
+--      --audio_ready <= '0';
+--    else
+--      Audio_L_output(15 downto 8) <= (others => '1');
+--      Audio_L_output(7 downto 0) <= (others => '1');
+--      Audio_R_output(15 downto 8) <= (others => '1'); 
+--      Audio_R_output(7 downto 0) <= (others => '1');
+--      audio_ready <= '1';
+--      wait for 100 ns;
+--      --audio_ready <= '0';
+--    end if;
+    
+    wait;
+    
+    
+  end process stimuli_process;
+  
+
+END ARCHITECTURE behav;
+

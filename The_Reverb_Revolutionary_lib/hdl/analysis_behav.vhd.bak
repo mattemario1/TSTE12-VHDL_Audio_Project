@@ -1,0 +1,47 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.analysis.behav
+--
+-- Created:
+--          by - simel970.student-liu.se (muxen2-101.ad.liu.se)
+--          at - 08:52:56 10/04/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+USE ieee.numeric_std.all;
+
+ENTITY analysis IS
+   PORT( 
+      audio_valid : IN     std_logic;
+      config_done : IN     std_logic;
+      dacdat      : IN     std_logic;
+      xck         : IN     std_logic;
+      i2c_scl     : IN     std_logic;
+      sample_r    : IN     std_logic_vector (15 DOWNTO 0);
+      sample_l    : IN     std_logic_vector (15 DOWNTO 0);
+      i2c_sda     : IN     std_logic
+   );
+
+-- Declarations
+
+END analysis ;
+
+
+ARCHITECTURE behav OF analysis IS
+  
+  signal temp : std_logic := '1';
+BEGIN
+  
+  config_test : process
+  begin
+    
+    wait for 1 ms;
+    
+    assert (temp = '0') report "All tests done, stopping simulation" severity Failure; 
+    
+  end process;
+  
+END ARCHITECTURE behav;
+

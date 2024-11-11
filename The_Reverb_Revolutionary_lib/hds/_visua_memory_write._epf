@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom arch
+DEFAULT_FILE atom Visua_memory_write_arch.vhd

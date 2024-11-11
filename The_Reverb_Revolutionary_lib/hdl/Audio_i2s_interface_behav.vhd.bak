@@ -1,0 +1,316 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.Audio_i2s_interface.behav
+--
+-- Created:
+--          by - simel970.student-liu.se (muxen2-106.ad.liu.se)
+--          at - 17:44:27 10/03/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY Audio_i2s_interface IS
+   PORT( 
+      fpga_clk       : IN     std_logic;
+      fpga_reset_n   : IN     std_logic;
+      config_done    : IN     std_logic;
+      Audio_L_output : IN     std_logic_vector (15 DOWNTO 0);
+      Audio_R_output : IN     std_logic_vector (15 DOWNTO 0);
+      audio_ready    : IN     std_logic;
+      sample_l       : OUT    std_logic_vector (15 DOWNTO 0);
+      sample_r       : OUT    std_logic_vector (15 DOWNTO 0);
+      audio_valid    : OUT    std_logic;
+      dacdat         : OUT    std_logic;
+      xck            : OUT    std_logic;
+      db             : OUT    std_logic_vector (17 DOWNTO 0)
+      adclrck        : OUT    std_logic;
+      daclrck        : OUT    std_logic;
+      bclk           : OUT    std_logic;
+      ADC_en         : OUT    std_logic;
+      DAC_en         : OUT    std_logic
+
+
+   );
+
+-- Declarations
+
+END Audio_i2s_interface ;
+
+--
+ARCHITECTURE behav OF Audio_i2s_interface IS
+  
+  signal rx_bit_count  : integer range 0 to 15 := 0;                         -- count bits in one audio sample
+  signal tx_bit_count  : integer range 0 to 15 := 0;                         -- bit counter for transmitting
+  signal sample_tmp    : std_logic_vector(15 downto 0) := (others => '0');
+  signal word_select   : std_logic := '0';                                   -- previous state of word select
+  signal audio_ready_flag : std_logic := '0';
+
+  type rx_state_type is (RX_IDLE, RECEIVE_LEFT, RECEIVE_RIGHT);
+  signal rx_state      : rx_state_type := RX_IDLE;               -- i2s receive state machine
+  
+  type tx_state_type is (TX_IDLE, TRANSMIT_LEFT, TRANSMIT_RIGHT);
+  signal tx_state      : tx_state_type := TX_IDLE;
+                          
+  signal mclk_clk_toggle    : std_logic := '0';
+  signal mclk_div_count     : integer := 0;
+  signal bclk_clk_toggle    : std_logic := '0';
+  signal bclk_div_count     : integer := 0;
+  signal lrclk_clk_toggle    : std_logic := '0';
+  signal lrclk_div_count     : integer := 0;
+  
+  signal bclk_sync_reg1     : std_logic := '0';
+  signal bclk_sync_reg2     : std_logic := '0';
+  signal adclrck_sync  : std_logic_vector(1 downto 0) := "00";
+  signal daclrck_sync  : std_logic_vector(1 downto 0) := "00";
+  signal adcdat_sync   : std_logic_vector(1 downto 0) := "00";
+  
+  signal adclrck_stable : std_logic := '0';
+  signal daclrck_stable : std_logic := '0';
+  signal adcdat_stable  : std_logic := '0';
+  signal bclk_falling   : std_logic := '0';
+  signal bclk_old       : std_logic := '0';
+
+  signal ADC_en_tmp : std_logic := '0';
+  signal DAC_en_tmp : std_logic := '0';
+  signal DAC_en_tmp2 : std_logic := '0';
+  signal mclk_clk_old : std_logic := '0';
+  
+  
+BEGIN
+  
+  -- Clock Divider to generate codec master clock (65MHz/6 = 10.83MHz)
+  clock_div : process(fpga_clk, fpga_reset_n)
+  begin
+    if fpga_reset_n = '0' then
+      mclk_clk_toggle <= '0';
+      mclk_div_count <= 0;
+    
+    elsif rising_edge(fpga_clk) then
+      
+      if mclk_div_count = 5 then
+        mclk_clk_toggle <= not mclk_clk_toggle;     -- toggle master clock
+        mclk_div_count <= 0;                   -- reset counter
+
+
+        if bclk_div_count = 3 then
+          bclk_clk_toggle <= not bclk_clk_toggle;     -- toggle master clock
+          bclk_div_count <= 0;                   -- reset counter
+
+
+          if lrclk_div_count = 31 then
+            lrclk_clk_toggle <= not lrclk_clk_toggle;     -- toggle master clock
+            lrclk_div_count <= 0;                   -- reset counter
+            ADC_en_tmp <= '1';
+            DAC_en_tmp <= '1';
+          else
+            lrclk_div_count <= lrclk_div_count + 1;
+
+          end if;
+
+        else
+          bclk_div_count <= bclk_div_count + 1;
+        end if;
+
+      else
+        mclk_div_count <= mclk_div_count + 1;
+        ADC_en <= '0';
+      end if;
+
+      mclk_clk_old <= mclk_clk_toggle;
+
+      if DAC_en_tmp = '1' and mclk_clk_toggle = '1' and mclk_clk_old = '0' then
+        DAC_en_tmp <= '1';
+        DAC_en_tmp2 <= '0';
+      else
+        DAC_en_tmp <= '0';
+      end if;
+
+    
+    end if;
+    
+  end process clock_div;
+  
+  xck <= mclk_clk_toggle;
+  bclk <= bclk_clk_toggle;
+  adclrck <= lrclk_clk_toggle;
+  daclrck <= lrclk_clk_toggle;
+  DAC_en <= DAC_en_tmp2;
+  ADC_en <= ADC_en_tmp;
+  
+  -- Detect rising edge of synced bit-stream clock
+  detect_rising_bclk : process(fpga_clk)
+  begin
+    if fpga_reset_n = '0' then
+
+    elsif rising_edge(fpga_clk) then
+      if (bclk_sync_reg2 = '0' and bclk_old = '1') then
+        bclk_falling <= '1';
+      else
+        bclk_falling <= '0';
+      end if;
+
+      bclk_old <= bclk_sync_reg2;
+    end if;
+  end process detect_rising_bclk;
+
+  -- 
+  audio_receive_process : process(fpga_clk, fpga_reset_n)
+  begin
+    if fpga_reset_n = '0' then
+      rx_state <= RX_IDLE;
+      rx_bit_count <= 0;
+      sample_l <= (others => '0');
+      sample_r <= (others => '0');
+      word_select <= '0';
+      audio_valid <= '0';
+      audio_ready_flag <= '0';
+    
+    elsif rising_edge(fpga_clk) then
+      if bclk_falling = '1' then
+        case rx_state is
+          
+          when RX_IDLE =>      -- idle state
+            
+            db(0) <= '0';
+            if adclrck /= word_select then   -- word select change (new frame)
+              word_select <= adclrck;
+              rx_bit_count <= 0;                -- reset bit count on adclrck edge (start of new word)
+              audio_valid <= '0';
+              
+              if config_done = '1' then
+                db(1) <= '0';
+                if adclrck = '0' then
+                  db(2) <= '0';
+                  rx_state <= RECEIVE_LEFT;      -- start receiving left channel
+                else
+                  db(6) <= '0';
+                  rx_state <= RECEIVE_RIGHT;      -- start receiving right channel
+                end if; 
+              end if;
+              
+            end if;
+          
+          when RECEIVE_LEFT =>      -- receiving left channel
+            db(3) <= '0';
+            if rx_bit_count < 16 then 
+              db(4) <= '0';
+              sample_tmp(15 - rx_bit_count) <= adcdat;
+              rx_bit_count <= rx_bit_count + 1;
+            elsif rx_bit_count < 31 then
+              rx_bit_count <= rx_bit_count + 1;
+            else
+              db(5) <= '0';
+              --sample_tmp(0) <= adcdat;
+              sample_l <= sample_tmp;
+              --audio_valid <= '1';
+              --l_sample_capture <= '1';
+              rx_bit_count <= 0;
+              rx_state <= RX_IDLE;
+            end if;
+            
+          when RECEIVE_RIGHT =>      -- receiving right channel
+            db(7) <= '0';
+            if rx_bit_count < 16 then 
+              db(8) <= '0';
+              sample_tmp(15 - rx_bit_count) <= adcdat;
+              rx_bit_count <= rx_bit_count + 1;
+            elsif rx_bit_count < 31 then
+              rx_bit_count <= rx_bit_count + 1;
+            else
+              db(9) <= '0';
+              -- sample_tmp(0) <= adcdat;
+              sample_r <= sample_tmp;
+              --r_sample_capture <= '1';
+              rx_bit_count <= 0;
+              rx_state <= RX_IDLE;
+            end if;
+
+          when others =>
+            rx_state <= RX_IDLE;          -- default back to idle
+          
+        end case;
+        
+      end if;
+      
+    end if;  
+    
+  end process audio_receive_process;
+
+
+  
+  audio_transmit_process : process(fpga_clk)
+  begin
+    if fpga_reset_n = '0' then
+      tx_bit_count <= 0;
+      dacdat <= '0';
+      tx_state <= TX_IDLE;
+      
+    elsif rising_edge(fpga_clk) then
+      if bclk_falling = '1' and audio_ready = '1' then
+        case tx_state is
+          
+          when TX_IDLE =>
+            if daclrck_stable = '0' then
+                tx_state <= TRANSMIT_LEFT;
+            else
+                tx_state <= TRANSMIT_RIGHT;
+            end if;
+            
+          when TRANSMIT_LEFT =>
+            dacdat <= Audio_L_output(15 - tx_bit_count);
+            if tx_bit_count < 15 then
+              tx_bit_count <= tx_bit_count +1;
+            else
+              tx_bit_count <= 0;
+              tx_state <= TX_IDLE;
+            end if;
+            
+          when TRANSMIT_RIGHT =>
+            dacdat <= Audio_R_output(15 - tx_bit_count);
+            if tx_bit_count < 15 then
+              tx_bit_count <= tx_bit_count +1;
+            else
+              tx_bit_count <= 0;
+              tx_state <= TX_IDLE;
+            end if;
+            
+          when others =>
+            tx_state <= TX_IDLE;
+          
+        end case;
+          
+      end if;
+    end if;
+    
+  end process audio_transmit_process;
+  
+  
+END ARCHITECTURE behav;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

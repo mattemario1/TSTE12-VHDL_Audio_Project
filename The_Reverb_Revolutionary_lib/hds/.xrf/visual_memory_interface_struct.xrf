@@ -1,0 +1,185 @@
+DESIGN @visual_memory_interface
+VIEW interface
+NO_GRAPHIC 0
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 50,0 8 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5828,0 14 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5833,0 15 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5838,0 16 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5843,0 17 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5868,0 18 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5923,0 19 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5928,0 20 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5848,0 21 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5853,0 22 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5933,0 23 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5903,0 24 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5908,0 25 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5913,0 26 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5918,0 27 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5858,0 28 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5863,0 29 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5873,0 30 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5878,0 31 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5883,0 32 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5888,0 33 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5893,0 34 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 5898,0 35 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 1,0 38 0 
+DESIGN @visual_memory_interface
+VIEW interface
+GRAPHIC 1,0 39 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 42
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 75,0 51 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 54
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 0,0 57 2 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 62
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 63
+LIBRARY The_Reverb_Revolutionary_lib
+DESIGN @visual_memory_read
+VIEW arch
+GRAPHIC 547,0 65 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 18,0 67 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 153,0 68 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 466,0 69 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 33,0 70 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 167,0 71 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 480,0 72 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 660,0 73 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 674,0 74 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 291,0 75 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 305,0 76 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 210,0 77 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 277,0 78 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 319,0 79 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1588,0 80 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1596,0 81 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 263,0 82 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1400,0 83 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1414,0 84 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1428,0 85 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 1201,0 86 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 2486,0 87 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 2626,0 88 0 
+LIBRARY The_Reverb_Revolutionary_lib
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 91
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 547,0 94 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 97
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 99
+DESIGN @visual_memory_interface
+VIEW struct.bd
+GRAPHIC 547,0 101 0 
+DESIGN @visual_memory_interface
+VIEW struct.bd
+NO_GRAPHIC 127

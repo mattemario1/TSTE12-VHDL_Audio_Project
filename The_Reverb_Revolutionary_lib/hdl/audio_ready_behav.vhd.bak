@@ -1,0 +1,38 @@
+--
+-- VHDL Architecture The_Reverb_Revolutionary_lib.audio_ready.behav
+--
+-- Created:
+--          by - simel970.student-liu.se (muxen2-102.ad.liu.se)
+--          at - 14:54:41 10/17/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.std_logic_arith.all;
+USE ieee.numeric_std.all;
+LIBRARY altera_mf;
+USE altera_mf.all;
+
+ENTITY audio_ready_block IS
+   PORT( 
+      Echo_room_setting : OUT    std_logic_vector (3 DOWNTO 0)
+   );
+
+-- Declarations
+
+END audio_ready_block ;
+
+--
+ARCHITECTURE behav OF audio_ready_block IS
+BEGIN
+  -- process(bclk)
+  -- begin
+  --   if rising_edge(bclk) then
+  --     dacdat <= adcdat;
+  --   end if;
+  -- end process;
+  
+  Echo_room_setting <= x"0";
+END ARCHITECTURE behav;
+

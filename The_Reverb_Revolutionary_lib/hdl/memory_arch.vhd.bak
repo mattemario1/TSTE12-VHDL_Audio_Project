@@ -1,0 +1,65 @@
+--
+-- VHDL Architecture Lab2_lib.Memory_interface_ent.Memory_interface_arch
+--
+-- Created:
+--          by - emibj862.student-liu.se (muxen2-110.ad.liu.se)
+--          at - 15:16:46 09/17/24
+--
+-- using Siemens HDL Designer(TM) 2024.1 Built on 24 Jan 2024 at 18:06:06
+--
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+ENTITY Memory_interface_ent IS
+  
+  port(
+     
+     fpga_clk_65M, fpga_reset_n, hblanc, vblanc : IN std_logic;      
+     sram_we_n, sram_oe_n, sram_ce_n, sram_lb_n, sram_ub_n : OUT std_logic;
+     sram_address           : OUT std_logic_vector (19 downto 0)
+       );
+END ENTITY Memory_interface_ent;
+
+--
+ARCHITECTURE Memory_interface_arch OF Memory_interface_ent IS
+  
+  signal sram_cnt : std_logic_vector (19 downto 0) := (others => '0');
+  
+BEGIN
+  sram_ce_n <= '0';
+	sram_oe_n <= '0';
+	sram_we_n <= '1';
+	sram_lb_n <= '0';
+	sram_ub_n <= '0';
+	
+	process (fpga_reset_n, 
+	fpga_clk_65M, hblanc, 
+	vblanc, sram_address) -- Increment the sram adress to "walk" trough the memory 
+	begin  
+	                
+	if fpga_reset_n = '0' then
+	  sram_cnt <= ( others => '0');
+	  
+	  
+	  
+	  
+	  
+	elsif rising_edge(fpga_clk_65M) then
+	  if (not hblanc) then
+	    sram_cnt <= std_logic_vector(unsigned(sram_cnt) + 1);  
+	  end if;
+	  
+	  if vblanc then
+	    sram_cnt <= ( others => '0') ;
+	  end if; 
+  end if;
+  
+  
+	end process;
+	
+
+	sram_address <= sram_cnt;
+	
+END ARCHITECTURE Memory_interface_arch;
+
